@@ -1,0 +1,50 @@
+# lumens-exporter example configuration
+# Copy this file to config.yaml and adjust to your environment.
+
+# ── HTTP server ───────────────────────────────────────────────────────────────
+
+# Address the HTTP server listens on.
+listen_host: "0.0.0.0"
+
+# Port the HTTP server listens on.
+listen_port: 9881
+
+# ── Logging ───────────────────────────────────────────────────────────────────
+
+# Minimum log level: DEBUG | INFO | WARNING | ERROR | CRITICAL
+log_level: INFO
+
+# ── Devices ───────────────────────────────────────────────────────────────────
+
+# List of Lumens VC-TR40/VC-TR40N PTZ auto-tracking cameras to monitor. This
+# list is OPTIONAL. When left empty (or omitted entirely) the exporter
+# operates in URL-parameter mode only: every probe request must supply the
+# target device via query parameters, e.g.:
+#
+#   GET /probe?host=192.168.1.10&name=cam-room-101
+#
+# When devices ARE listed here they are probed on every plain GET /probe
+# request (config-file mode). URL-parameter mode is always available alongside
+# config-file mode regardless of whether devices are listed below.
+#
+# Supported query parameters (all except 'host' are optional):
+#   host        Hostname or IP address of the device        (required)
+#   name        Label used in Prometheus metrics             (default: value of host)
+#   port        HTTP port                                    (default: 80)
+#   timeout     Request timeout in seconds                   (default: 10.0)
+#
+# No credentials needed: the camera exposes its model name and web UI
+# version without authentication (its login page and a static version.js
+# asset — see CLAUDE.md for exactly what's scraped and why). There is no
+# username/password configuration for this exporter.
+
+# devices:
+#   - name: cam-lecture-hall-1
+#     host: 192.168.1.10
+#     port: 80                 # HTTP port
+#     timeout: 10.0             # Request timeout in seconds
+
+#   - name: cam-lecture-hall-2
+#     host: 192.168.1.11
+#     port: 80
+#     timeout: 10.0
